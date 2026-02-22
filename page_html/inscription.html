@@ -3,139 +3,501 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Er</title>
+  <title>Daily Ember – Inscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <style>
+    :root {
+      --bg-deep:       #1a0b05;
+      --bg-card:       #2d160b;
+      --bg-section:    #0d0604;
+      --accent-red:    #8b0000;
+      --accent-orange: #ff4500;
+      --accent-gold:   #ffcc00;
+      --accent-warm:   #ffd27d;
+      --accent-brown:  #3d0a00;
+      --text-light:    #ffffff;
+      --text-muted:    #c5975a;
+      --error:         #ff6b6b;
+      --success:       #6fcf6f;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-
-    header {
-      background-color: #360404;
-      display : flex;
-      color: white;
-      padding: 10px;
-      text-align: left;
-      font-size: 16px;
-      gap : 200px;
-      
-    }
-
-  .button2{
-      margin-left: 100px;
-      background-color: #0c0000;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 7px 13px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-
-  .button3{
-      background-color: #8f6a5d9f;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 10px 20px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-
- .button4{
-      background-color: #f747089f;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 10px 20px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-  
-    ul{
-      list-style-type: none;
-      display : flex;
-      gap : 100px;
-
-    }
-    main {
-      padding: 40px;
-      background-color: #b8410a;
+      font-family: 'Nunito', Arial, sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--accent-warm);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* horizontal */
-      align-items: center;     /* vertical */  
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background-color: var(--accent-red);
+      color: var(--text-light);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo-btn {
+      background: none;
+      border: 2px solid var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .logo-btn:hover { background: var(--accent-gold); color: var(--bg-deep); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-nav {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: var(--accent-orange);
+      color: var(--text-light);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-nav:hover { background-color: #e03d00; transform: translateY(-1px); }
+
+    .auth-nav ul { gap: 10px; }
+
+    .btn-auth {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      background-color: var(--accent-orange);
+      color: var(--text-light);
+      box-shadow: 0 4px 6px rgba(255,165,0,0.5);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-auth:hover { background-color: #e03d00; transform: translateY(-1px); }
+    .btn-auth.active { background-color: var(--accent-gold); color: var(--bg-deep); }
+
+    /* ─── MAIN ─── */
+    main {
+      flex: 1;
+      padding: 60px 20px;
+      background: radial-gradient(ellipse at center top, #6b1a00 0%, var(--accent-orange) 40%, #c43500 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .card {
-      background: white;
-      padding: 20px;
+      background: var(--bg-card);
+      padding: 36px 32px;
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+      width: 100%;
+      max-width: 420px;
+      color: var(--text-light);
+      border: 1px solid var(--accent-orange);
+      animation: fadeUp 0.5s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h1 {
+      text-align: center;
+      color: var(--accent-gold);
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+    }
+
+    /* ─── FORM ─── */
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent-warm);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: auto;
-    }
-    .titre{
-      font-size: 20px;
-      font-family: 'Times New Roman', Times, serif;
-      font-display: flex;
-      
+      border: 1px solid var(--accent-brown);
+      background-color: var(--bg-deep);
+      color: var(--text-light);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-
-    img {
-      width:760px;
-      height: auto;
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 6px rgba(255,204,0,0.4);
     }
 
-    .section2{
-      background-color: #ffffff;
-      height: 3000px;
-
+    .form-group input.input-error {
+      border-color: var(--error);
+      box-shadow: 0 0 6px rgba(255,107,107,0.4);
     }
 
-    h1{
-      color: white;
+    .input-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
     }
- 
+
+    /* ─── PASSWORD STRENGTH ─── */
+    .strength-bar-wrap {
+      height: 5px;
+      background: var(--bg-deep);
+      border-radius: 4px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s, background 0.3s;
+    }
+    .strength-label {
+      font-size: 0.75rem;
+      margin-top: 3px;
+      color: var(--text-muted);
+    }
+
+    /* ─── CGU ─── */
+    .cgu-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .cgu-group input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin-top: 2px;
+      accent-color: var(--accent-orange);
+      cursor: pointer;
+    }
+    .cgu-group label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .cgu-group a { color: var(--accent-gold); text-decoration: underline; }
+
+    /* ─── MESSAGES ─── */
+    .msg {
+      font-size: 0.85rem;
+      text-align: center;
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: none;
+    }
+    .msg.error   { color: var(--error);   background: rgba(255,107,107,0.1); border: 1px solid var(--error); }
+    .msg.success { color: var(--success); background: rgba(111,207,111,0.1); border: 1px solid var(--success); }
+
+    /* ─── SUBMIT BTN ─── */
+    .submit-btn {
+      width: 100%;
+      background-color: var(--accent-orange);
+      color: var(--text-light);
+      padding: 13px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .submit-btn:hover { background-color: var(--accent-gold); color: var(--bg-deep); transform: scale(1.02); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ─── SOCIAL ─── */
+    .separator {
+      text-align: center;
+      margin: 18px 0 14px;
+      color: var(--accent-warm);
+      font-size: 0.85rem;
+      position: relative;
+    }
+    .separator::before, .separator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 35%;
+      height: 1px;
+      background: var(--accent-brown);
+    }
+    .separator::before { left: 0; }
+    .separator::after  { right: 0; }
+
+    .social-auth { display: flex; flex-direction: column; gap: 10px; }
+
+    .btn-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 11px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-social:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-google   { background: #ffffff; color: #333; }
+    .btn-facebook { background: #1877F2; color: #fff; }
+
+    /* ─── ALREADY ACCOUNT ─── */
+    .already-account {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .already-account a { color: var(--accent-gold); font-weight: 700; text-decoration: none; }
+    .already-account a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    footer { text-align: center; padding: 20px; background: var(--bg-section); color: var(--accent-red); font-size: 0.85rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 500px) {
+      header { padding: 10px 14px; }
+      .card  { padding: 24px 18px; }
+      nav ul { gap: 6px; }
+    }
   </style>
 </head>
 
 <body>
 
-  <header> 
-    <button class="button3" onclick="location.href = 'dailyflame.html'">DailyFlame</button>
-    <ul>
-      <li><button class="button3" onclick="location.href = 'social.html'">social</button></li>
-      <li><button class="button3" onclick="location.href = 'stats.html'">stats</button></li>
-      <li><button class="button3" onclick="location.href = 'settings.html'">settings</button></li>
-    </ul>
-    <ul>
-      <li><button class="button4" onclick="location.href = 'inscription.html'">inscription</button></li>
-      <li><button class="button4" onclick="location.href = 'connexion.html'">connexion</button></li>
-    </ul>
+  <header>
+    <a class="logo-btn" href="dailyflame.html">🔥 Daily Ember</a>
+
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a class="btn-nav" href="social.html">Social</a></li>
+        <li><a class="btn-nav" href="stats.html">Stats</a></li>
+        <li><a class="btn-nav" href="settings.html">Paramètres</a></li>
+      </ul>
+    </nav>
+
+    <nav class="auth-nav" aria-label="Authentification">
+      <ul>
+        <li><a class="btn-auth active" href="inscription.html">Inscription</a></li>
+        <li><a class="btn-auth" href="connexion.html">Connexion</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
-   Inscription
+    <div class="card">
+      <h1>🔥 Inscription</h1>
+
+      <form id="registrationForm" novalidate>
+
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input type="text" id="username" name="username"
+                 placeholder="EmberHero42"
+                 autocomplete="username" required minlength="3">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse e-mail</label>
+          <input type="email" id="email" name="email"
+                 placeholder="exemple@feu.com"
+                 autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password"
+                 placeholder="••••••••"
+                 autocomplete="new-password" required minlength="8">
+          <div class="strength-bar-wrap">
+            <div class="strength-bar" id="strengthBar"></div>
+          </div>
+          <div class="strength-label" id="strengthLabel"></div>
+          <div class="input-hint">Minimum 8 caractères, 1 majuscule et 1 chiffre.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirmer le mot de passe</label>
+          <input type="password" id="confirm_password" name="confirm_password"
+                 placeholder="••••••••"
+                 autocomplete="new-password" required>
+        </div>
+
+        <div class="cgu-group">
+          <input type="checkbox" id="cgu" name="cgu" required>
+          <label for="cgu">
+            J'accepte les <a href="cgu.html">Conditions Générales d'Utilisation</a>
+            et la <a href="confidentialite.html">Politique de confidentialité</a>.
+          </label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Allumer la flamme 🔥</button>
+
+        <p class="msg error"   id="error-message"></p>
+        <p class="msg success" id="success-message">🎉 Inscription réussie ! Bienvenue dans l'aventure.</p>
+      </form>
+
+      <div class="separator">ou s'inscrire avec</div>
+
+      <div class="social-auth">
+        <button class="btn-social btn-google" type="button">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="">
+          Continuer avec Google
+        </button>
+        <button class="btn-social btn-facebook" type="button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" width="18" alt="">
+          Continuer avec Facebook
+        </button>
+      </div>
+
+      <p class="already-account">
+        Déjà un compte ? <a href="connexion.html">Se connecter</a>
+      </p>
+    </div>
   </main>
 
-  <div class="section2">
-  </div>
+  <footer>© 2026 – Daily Ember</footer>
 
-  <footer>
-    © 2026 – Daily Ember
-  </footer>
+  <script>
+    const form            = document.getElementById('registrationForm');
+    const passwordInput   = document.getElementById('password');
+    const confirmInput    = document.getElementById('confirm_password');
+    const errorMsg        = document.getElementById('error-message');
+    const successMsg      = document.getElementById('success-message');
+    const strengthBar     = document.getElementById('strengthBar');
+    const strengthLabel   = document.getElementById('strengthLabel');
+
+    function showError(msg) {
+      errorMsg.textContent = msg;
+      errorMsg.style.display = 'block';
+      successMsg.style.display = 'none';
+    }
+    function hideError() {
+      errorMsg.style.display = 'none';
+    }
+
+    // ── Force du mot de passe ──
+    passwordInput.addEventListener('input', () => {
+      const val = passwordInput.value;
+      let score = 0;
+      if (val.length >= 8)           score++;
+      if (/[A-Z]/.test(val))         score++;
+      if (/[0-9]/.test(val))         score++;
+      if (/[^A-Za-z0-9]/.test(val))  score++;
+
+      const levels = [
+        { w: '0%',   bg: 'transparent', label: '' },
+        { w: '25%',  bg: '#ff4444',     label: '⚠ Très faible' },
+        { w: '50%',  bg: '#ff8c00',     label: '🔶 Faible' },
+        { w: '75%',  bg: '#ffcc00',     label: '🔥 Moyen' },
+        { w: '100%', bg: '#6fcf6f',     label: '✅ Fort' },
+      ];
+
+      const lvl = val.length === 0 ? levels[0] : levels[score] || levels[1];
+      strengthBar.style.width      = lvl.w;
+      strengthBar.style.background = lvl.bg;
+      strengthLabel.textContent    = lvl.label;
+    });
+
+    // ── Validation ──
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      hideError();
+
+      const username = document.getElementById('username').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const pwd      = passwordInput.value;
+      const confirm  = confirmInput.value;
+      const cgu      = document.getElementById('cgu').checked;
+
+      if (username.length < 3) {
+        showError('Le nom d\'utilisateur doit contenir au moins 3 caractères.');
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('Veuillez entrer une adresse e-mail valide (ex: nom@domaine.com).');
+        return;
+      }
+      if (pwd.length < 8) {
+        showError('Le mot de passe doit contenir au moins 8 caractères.');
+        return;
+      }
+      if (!/[A-Z]/.test(pwd) || !/[0-9]/.test(pwd)) {
+        showError('Le mot de passe doit contenir au moins 1 majuscule et 1 chiffre.');
+        return;
+      }
+      if (pwd !== confirm) {
+        confirmInput.classList.add('input-error');
+        showError('Les mots de passe ne correspondent pas.');
+        return;
+      } else {
+        confirmInput.classList.remove('input-error');
+      }
+      if (!cgu) {
+        showError('Vous devez accepter les CGU pour continuer.');
+        return;
+      }
+
+      // ✅ Succès
+      successMsg.style.display = 'block';
+      form.reset();
+      strengthBar.style.width = '0%';
+      strengthLabel.textContent = '';
+    });
+
+    confirmInput.addEventListener('input', () => {
+      confirmInput.classList.remove('input-error');
+      hideError();
+    });
+  </script>
 
 </body>
 </html>
