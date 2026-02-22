@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Er</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #272727;
+      display: flex;
+      color: white;
+      padding: 10px;
+      text-align: left;
+      font-size: 16px;
+      gap: 200px;
+    }
+
+    .button3 {
+      background-color: #d1522400;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .button4 {
+      background-color: #d1522400;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      gap: 100px;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* ── MAIN : flex row, 3 blocs fixes ── */
+    main {
+      background-color: #141414;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 220px;
+      padding: 0 40px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    h1 { color: white; }
+
+    /* Bloc gauche : titre + image */
+    .main-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .main-left h1 {
+      margin: 0;
+      font-size: 22px;
+      color: white;
+    }
+
+    .main-left .main-subtitle {
+      color: #888;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+    }
+
+    .main-center img {
+      height: 100px;
+      width: auto;
+    }
+
+    /* Bloc centre : XP bar */
+    .main-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .xp-label { color: white; font-size: 13px; font-family: Arial, sans-serif; }
+
+    .xp-bar {
+      width: 200px; height: 12px;
+      background-color: #3a3a3a;
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid #555;
+    }
+
+    .xp-fill {
+      height: 100%; width: 65%;
+      background-color: #ce6e14;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
+    /* Bloc droit : grille de plus */
+    .main-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .grille-titre {
+      color: white;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .grille-plus {
+      display: grid;
+      grid-template-columns: repeat(6, 30px);
+      grid-template-rows: repeat(2, 30px);
+      gap: 5px;
+    }
+
+    .grille-plus img { height: 30px; }
+
+    .section2 {
+      background-color: #ffffff;
+      height: 3000px;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 9px;
+      padding: 10px 24px;
+      background-color: #e7e7e7;
+    }
+
+    .addH {
+      background-color: #ce6e14;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      width: 24%;
+      flex-shrink: 0;
+    }
+
+    .addH:hover { background-color: #b85c10; }
+
+    .calendrier-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    .vue-buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .vue-btn {
+      background-color: #ccc;
+      border: none;
+      border-radius: 7px;
+      padding: 5px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      color: #444;
+    }
+
+    .vue-btn.active {
+      background-color: #ce6e14;
+      color: white;
+    }
+
+    .date-topbar {
+      margin-left: auto;
+      color: #333;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+      background-color: #d4d4d4;
+      border-radius: 7px;
+      padding: 4px 12px;
+    }
+
+    /* ── CONTENEUR COMMUN ── */
+    .weekplanner {
+      background-color: #0000009f;
+      border: 1px solid #333;
+      border-radius: 7px;
+      height: 80px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* ── VUE SEMAINE ── */
+    .weeklist {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: space-around;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .weeklist li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      cursor: pointer;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      padding: 4px 2px;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .weeklist li:hover { background-color: rgba(206, 110, 20, 0.1); }
+
+    .weeklist li.selected {
+      background-color: rgba(206, 110, 20, 0.25);
+      border-color: #ce6e14;
+    }
+
+    .day-cell {
+      width: 20px;
+      height: 20px;
+      margin: 5px 0;
+      background-color: #26ac14;
+      border-radius: 7px;
+    }
+
+    .wday {
+      color: #ebebeb;
+      font-size: 15px;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* ── VUE MENSUELLE ── */
+    .month-content {
+      display: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .month-content.visible { display: flex; }
+
+    .month-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .week-separator {
+      width: 1px;
+      height: 36px;
+      background-color: rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
+      margin: 0 2px;
+    }
+
+    .month-day-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+    }
+
+    .month-day-letter {
+      color: #aaa;
+      font-size: 9px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .month-cell {
+      width: 20px;
+      height: 20px;
+      background-color: #26ac14;
+      border-radius: 7px;
+      transition: background-color 0.2s ease, outline 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .month-day-item:hover .month-cell { background-color: #32d919; }
+
+    .month-day-item.selected .month-cell {
+      background-color: #ce6e14;
+      outline: 2px solid #ff9040;
+    }
+
+    .month-day-item.today .month-cell { outline: 2px solid white; }
+
+    /* ── BOARD ── */
+    .board {
+      background-color: #e7e7e7;
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      padding: 2px 24px;
+      gap: 10px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .column {
+      background-color: #ececec;
+      border: 1px solid rgba(58, 58, 58, 0.897);
+      border-radius: 10px;
+      padding: 14px;
+      min-height: 500px;
+      width: 500px;
+      box-sizing: border-box;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card {
+      width: 70%;
+      background: #ffffff;
+      border: 1px solid #332b2b;
+      border-radius: 7px;
+      padding: 12px 14px;
+      cursor: grab;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 14px;
+    }
+
+    .card:active { cursor: grabbing; }
+    .card.active { background-color: #ce6e14; color: white; border-color: #a85510; }
+    .card.sortable-ghost { opacity: 0.3; background-color: #ce6e14; }
+    .card.sortable-drag  { opacity: 0.9; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .card-tag { font-size: 11px; color: #999; margin-top: 3px; }
+    .card.active .card-tag { color: #ffd9b3; }
+
+    .column h1 {
+      color: black;
+      font-size: medium;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      background-color: #f9f9f9;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: border 0.3s ease;
+    }
+
+    input[type="text"]:focus { border-color: #ce6e14; background-color: #fff; }
+    input[type="text"]::placeholder { color: #aaa; font-style: italic; }
+
+    .dropdown {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      background-color: #f9f9f9;
+      color: #333;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .dropdown:focus { border-color: #ce6e14; }
+
+    .column-header { display: flex; align-items: center; gap: 10px; }
+    .column-header h1 { margin: 0; }
+
+    .compteur {
+      font-size: 13px; color: #888;
+      background-color: #ddd;
+      border-radius: 20px; padding: 2px 8px;
+      font-family: Arial, sans-serif;
+    }
+
+    .compteur.complet { background-color: #ce6e14; color: white; }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0,0,0,0.55);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .overlay.visible { display: flex; }
+
+    .modal {
+      background-color: #1e1e1e;
+      border-radius: 14px;
+      padding: 30px;
+      width: 700px;
+      max-width: 95vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      display: flex;
+      gap: 30px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      color: white;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px; left: 16px;
+      background: none; border: none;
+      color: #aaa; font-size: 22px;
+      cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: white; }
+
+    .modal-form {
+      flex: 1;
+      display: flex; flex-direction: column;
+      gap: 16px; padding-top: 20px;
+    }
+
+    .modal-form h2 { margin: 0 0 6px 0; font-size: 18px; color: white; font-family: Arial, sans-serif; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 13px; color: #aaa; font-family: Arial, sans-serif; }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px 12px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      font-size: 14px;
+      background-color: #2a2a2a;
+      color: white;
+      outline: none;
+      transition: border 0.2s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus { border-color: #ce6e14; }
+    .form-group select option { background-color: #2a2a2a; }
+
+    .btn-enregistrer {
+      margin-top: 10px; padding: 12px;
+      background-color: #ce6e14; color: white;
+      border: none; border-radius: 10px;
+      font-size: 15px; cursor: pointer;
+      transition: background-color 0.3s ease; width: 100%;
+    }
+
+    .btn-enregistrer:hover { background-color: #b85c10; }
+
+    .modal-liste {
+      width: 200px; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      gap: 10px; padding-top: 20px;
+    }
+
+    .modal-liste h3 {
+      margin: 0 0 6px 0; font-size: 14px;
+      color: #aaa; font-family: Arial, sans-serif;
+      border-bottom: 1px solid #333; padding-bottom: 6px;
+    }
+
+    .liste-activites {
+      display: flex; flex-direction: column;
+      gap: 8px; overflow-y: auto; max-height: 400px;
+    }
+
+    .activite-item {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px; font-family: Arial, sans-serif; color: #ddd;
+    }
+
+    .activite-item span { display: block; font-size: 11px; color: #888; margin-top: 2px; }
+    .liste-vide { font-size: 13px; color: #555; font-style: italic; font-family: Arial, sans-serif; }
+    #habitlist .card { cursor: default; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <button class="button3" onclick="location.href='dailyflame.html'">DailyFlame</button>
+    <ul>
+      <li><button class="button3" onclick="location.href='social.html'">social</button></li>
+      <li><button class="button3" onclick="location.href='stats.html'">stats</button></li>
+      <li><button class="button3" onclick="location.href='settings.html'">settings</button></li>
+    </ul>
+    <ul>
+      <li><button class="button4" onclick="location.href='inscription.html'">inscription</button></li>
+      <li><button class="button4" onclick="location.href='connexion.html'">connexion</button></li>
+    </ul>
+  </header>
+
+  <main>
+    <!-- Bloc gauche -->
+   
+
+     <div class="main-center">
+      <img src="dflg.png" alt="Logo">
+      <span class="xp-label">Niveau 7 — 650 / 1000 XP</span>
+      <div class="xp-bar">
+        <div class="xp-fill" style="width: 65%;"></div>
+      </div>
+    </div>
+
+
+    <!-- Bloc centre -->
+   <div class="main-left">
+      <ul> 
+      <li><h1 style="color : gray">Dailyflame </h1></li>
+      <li><h1>Track your Habits</h1></li>
+      </ul>
+    </div>
+
+    <!-- Bloc droit -->
+    <div class="main-right">
+      <span class="grille-titre" style="font-family: system-ui">Mes foyers</span>
+      <div class="grille-plus">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+        <img src="plus.png" alt="Logo">
+      </div>
+    </div>
+  </main>
+
+  <div class="topbar">
+    <button class="addH" onclick="ouvrirModal()">Gérer les habitudes</button>
+
+    <div class="calendrier-wrapper">
+      <div class="vue-buttons">
+        <button class="vue-btn active" id="btn-semaine" onclick="setVue('semaine')">Semaine</button>
+        <button class="vue-btn" id="btn-mois" onclick="setVue('mois')">Mois</button>
+        <div class="date-topbar" id="date-topbar"></div>
+      </div>
+
+      <div class="weekplanner">
+        <ul class="weeklist" id="vue-semaine">
+          <li onclick="selectJour(this)"><div class="wday">Lundi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Mardi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Mercredi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Jeudi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Vendredi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Samedi</div><div class="day-cell"></div></li>
+          <li onclick="selectJour(this)"><div class="wday">Dimanche</div><div class="day-cell"></div></li>
+        </ul>
+        <div class="month-content" id="vue-mois">
+          <div class="month-row" id="month-row"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERLAY + MODAL -->
+  <div class="overlay" id="overlay" onclick="fermerModalOverlay(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="fermerModal()">✕</button>
+      <div class="modal-form">
+        <h2>Nouvelle activité</h2>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" id="input-nom" placeholder="Ex : Méditation, Course...">
+        </div>
+        <div class="form-group">
+          <label>Fréquence</label>
+          <select id="input-frequence">
+            <option value="">-- Choisir --</option>
+            <option value="Quotidien">Quotidien</option>
+            <option value="Hebdomadaire">Hebdomadaire</option>
+            <option value="Mensuel">Mensuel</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Période</label>
+          <select id="input-periode">
+            <option value="">-- Choisir --</option>
+            <option value="matin">Matin</option>
+            <option value="aprem">Après-midi</option>
+            <option value="soir">Soir</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select id="input-type">
+            <option value="">-- Choisir --</option>
+            <option value="Santé">Santé</option>
+            <option value="Travail">Travail</option>
+            <option value="Projet">Projet</option>
+            <option value="Sport">Sport</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+        <button class="btn-enregistrer" onclick="enregistrerActivite()">Enregistrer</button>
+      </div>
+      <div class="modal-liste">
+        <h3>Activités existantes</h3>
+        <div class="liste-activites" id="liste-activites-modal">
+          <p class="liste-vide" id="liste-vide-modal">Aucune activité pour l'instant.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="board" id="board">
+    <div class="column" id="habitlist">
+      <h1>Mes Habitudes</h1>
+      <input type="text" placeholder="rechercher une habitude...">
+      <ul>
+        <li>
+          <select class="dropdown">
+            <option value=""> Trier par </option>
+            <option value="santé">Santé</option>
+            <option value="travail">Travail</option>
+            <option value="projet">Projet</option>
+          </select>
+        </li>
+        <li>
+          <select class="dropdown">
+            <option value=""> ordre </option>
+            <option value="croissant">croissant</option>
+            <option value="décroissant">décroissant</option>
+          </select>
+        </li>
+      </ul>
+      <h1>Liste</h1>
+      <div id="liste-habitlist"></div>
+    </div>
+
+    <div class="column" id="col1">
+      <div class="column-header">
+        <h1>MATIN</h1>
+        <span class="compteur" id="compteur-col1">0/0</span>
+      </div>
+    </div>
+
+    <div class="column" id="col2">
+      <div class="column-header">
+        <h1>APREM</h1>
+        <span class="compteur" id="compteur-col2">0/0</span>
+      </div>
+    </div>
+
+    <div class="column" id="col3">
+      <div class="column-header">
+        <h1>SOIR</h1>
+        <span class="compteur" id="compteur-col3">0/0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section2"></div>
+  <footer>© 2026 – Daily Ember</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+
+  <script>
+    const now = new Date();
+    const optsDate = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('date-topbar').textContent = now.toLocaleDateString('fr-FR', optsDate);
+
+    const DAY_LETTERS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+    function setVue(vue) {
+      const semaine = document.getElementById('vue-semaine');
+      const mois    = document.getElementById('vue-mois');
+      const btnS    = document.getElementById('btn-semaine');
+      const btnM    = document.getElementById('btn-mois');
+      if (vue === 'semaine') {
+        semaine.style.display = 'flex';
+        mois.classList.remove('visible');
+        btnS.classList.add('active');
+        btnM.classList.remove('active');
+      } else {
+        semaine.style.display = 'none';
+        mois.classList.add('visible');
+        btnS.classList.remove('active');
+        btnM.classList.add('active');
+        genererMois();
+      }
+    }
+
+    function genererMois() {
+      const row = document.getElementById('month-row');
+      if (row.children.length > 0) return;
+      const today   = new Date();
+      const annee   = today.getFullYear();
+      const mois    = today.getMonth();
+      const nbJours = new Date(annee, mois + 1, 0).getDate();
+      for (let j = 1; j <= nbJours; j++) {
+        const dateObj = new Date(annee, mois, j);
+        let dow = dateObj.getDay();
+        dow = (dow === 0) ? 6 : dow - 1;
+        if (dow === 0 && j > 1) {
+          const sep = document.createElement('div');
+          sep.className = 'week-separator';
+          row.appendChild(sep);
+        }
+        const item = document.createElement('div');
+        item.className = 'month-day-item';
+        if (j === today.getDate()) item.classList.add('today');
+        const letter = document.createElement('div');
+        letter.className = 'month-day-letter';
+        letter.textContent = DAY_LETTERS[dow];
+        const cell = document.createElement('div');
+        cell.className = 'month-cell';
+        item.appendChild(letter);
+        item.appendChild(cell);
+        item.addEventListener('click', function () {
+          document.querySelectorAll('.month-day-item').forEach(el => el.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+        row.appendChild(item);
+      }
+    }
+
+    function selectJour(li) {
+      document.querySelectorAll('.weeklist li').forEach(el => el.classList.remove('selected'));
+      li.classList.add('selected');
+    }
+
+    const activites = [];
+    const periodeColonne = { matin: 'col1', aprem: 'col2', soir: 'col3' };
+
+    function updateCompteur(colId) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+      const total  = col.querySelectorAll('.card').length;
+      const actifs = col.querySelectorAll('.card.active').length;
+      const cpt    = document.getElementById('compteur-' + colId);
+      if (!cpt) return;
+      cpt.textContent = actifs + '/' + total;
+      cpt.classList.toggle('complet', total > 0 && actifs === total);
+    }
+
+    function toggleCard(card, colId) {
+      card.classList.toggle('active');
+      updateCompteur(colId);
+    }
+
+    ['col1', 'col2', 'col3'].forEach(colId => {
+      Sortable.create(document.getElementById(colId), {
+        group: 'habits',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        dragClass: 'sortable-drag',
+        filter: '.column-header',
+        onEnd(evt) {
+          const fromId = evt.from.id;
+          const toId   = evt.to.id;
+          evt.item.setAttribute('onclick', `toggleCard(this, '${toId}')`);
+          updateCompteur(fromId);
+          if (fromId !== toId) updateCompteur(toId);
+        }
+      });
+    });
+
+    function ouvrirModal() { document.getElementById('overlay').classList.add('visible'); }
+    function fermerModal()  { document.getElementById('overlay').classList.remove('visible'); }
+    function fermerModalOverlay(e) { if (e.target === document.getElementById('overlay')) fermerModal(); }
+
+    function enregistrerActivite() {
+      const nom       = document.getElementById('input-nom').value.trim();
+      const frequence = document.getElementById('input-frequence').value;
+      const periode   = document.getElementById('input-periode').value;
+      const type      = document.getElementById('input-type').value;
+      if (!nom) { document.getElementById('input-nom').focus(); return; }
+      const activite = { nom, frequence, periode, type };
+      activites.push(activite);
+      rafraichirListeModal();
+      ajouterCardColonne(activite);
+      ajouterDansHabitlist(activite);
+      const colId = periodeColonne[periode];
+      if (colId) updateCompteur(colId);
+      document.getElementById('input-nom').value = '';
+      document.getElementById('input-frequence').value = '';
+      document.getElementById('input-periode').value = '';
+      document.getElementById('input-type').value = '';
+    }
+
+    function ajouterCardColonne(activite) {
+      const colId = periodeColonne[activite.periode];
+      if (!colId) return;
+      const col  = document.getElementById(colId);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('onclick', `toggleCard(this, '${colId}')`);
+      card.innerHTML = `<strong>${activite.nom}</strong><div class="card-tag">${activite.type || ''} ${activite.frequence ? '· ' + activite.frequence : ''}</div>`;
+      col.appendChild(card);
+    }
+
+    function ajouterDansHabitlist(activite) {
+      const liste = document.getElementById('liste-habitlist');
+      const card  = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<strong>${activite.nom}</strong><div class="card-tag">${activite.type || ''} · ${activite.periode || ''} · ${activite.frequence || ''}</div>`;
+      liste.appendChild(card);
+    }
+
+    function rafraichirListeModal() {
+      const liste = document.getElementById('liste-activites-modal');
+      const vide  = document.getElementById('liste-vide-modal');
+      liste.querySelectorAll('.activite-item').forEach(el => el.remove());
+      if (activites.length === 0) {
+        vide.style.display = 'block';
+      } else {
+        vide.style.display = 'none';
+        activites.forEach(a => {
+          const div = document.createElement('div');
+          div.className = 'activite-item';
+          div.innerHTML = `<strong>${a.nom}</strong><span>${a.type || '—'} · ${a.periode || '—'} · ${a.frequence || '—'}</span>`;
+          liste.appendChild(div);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
