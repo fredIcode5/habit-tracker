@@ -3,141 +3,321 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Er</title>
+  <title>Daily Ember – Accueil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <style>
+    :root {
+      --bg-deep:       #1a0b05;
+      --bg-card:       #2d160b;
+      --bg-section:    #0d0604;
+      --accent-red:    #8b0000;
+      --accent-orange: #ff4500;
+      --accent-gold:   #ffcc00;
+      --accent-warm:   #ffd27d;
+      --accent-brown:  #3d0a00;
+      --text-light:    #ffffff;
+      --text-muted:    #c5975a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-
-    header {
-      background-color: #360404;
-      display : flex;
-      color: white;
-      padding: 10px;
-      text-align: left;
-      font-size: 16px;
-      gap : 200px;
-      
-    }
-
-  .button2{
-      margin-left: 100px;
-      background-color: #0c0000;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 7px 13px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-
-  .button3{
-      background-color: #8f6a5d9f;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 10px 20px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-
- .button4{
-      background-color: #f747089f;       /* couleur de fond */
-      color: white;                    /* couleur du texte */
-      border: none;                    /* supprime la bordure par défaut */
-      padding: 10px 20px;              /* taille du bouton */
-      border-radius: 25px;             /* coins arrondis */
-      font-size: 16px;                 /* taille du texte */
-      cursor: pointer;                 /* pointeur au survol */
-      transition: all 0.3s ease;       /* animation douce pour hover */
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* légère ombre */
-}
-  
-    ul{
-      list-style-type: none;
-      display : flex;
-      gap : 100px;
-
-    }
-    main {
-      padding: 40px;
-      background-color: #b8410a;
+      font-family: 'Nunito', Arial, sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--accent-warm);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* horizontal */
-      align-items: center;     /* vertical */  
     }
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: auto;
-    }
-    .titre{
-      font-size: 20px;
-      font-family: 'Times New Roman', Times, serif;
-      font-display: flex;
-      
+    /* ─── HEADER ─── */
+    header {
+      background-color: var(--accent-red);
+      color: var(--text-light);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
+    .logo-btn {
+      background: none;
+      border: 2px solid var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .logo-btn:hover { background: var(--accent-gold); color: var(--bg-deep); }
 
-    img {
-      width:760px;
+    nav ul { list-style: none; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-nav {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: var(--accent-orange);
+      color: var(--text-light);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-nav:hover { background-color: #e03d00; transform: translateY(-1px); }
+
+    .btn-auth {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      background-color: var(--accent-orange);
+      color: var(--text-light);
+      box-shadow: 0 4px 6px rgba(255,165,0,0.5);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-auth:hover { background-color: #e03d00; transform: translateY(-1px); }
+    .btn-auth.active { background-color: var(--accent-gold); color: var(--bg-deep); }
+
+    /* ─── HERO ─── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      background: radial-gradient(ellipse at center top, #6b1a00 0%, var(--accent-orange) 40%, #c43500 100%);
+      padding: 80px 24px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero img {
+      width: min(340px, 80vw);
       height: auto;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
     }
 
-    .section2{
-      background-color: #ffffff;
-      height: 3000px;
-
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 4vw, 2.4rem);
+      color: var(--accent-gold);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      max-width: 600px;
+      line-height: 1.35;
     }
 
-    h1{
-      color: white;
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 480px;
+      opacity: 0.9;
+      line-height: 1.6;
     }
- 
+
+    .btn-cta {
+      background-color: var(--accent-gold);
+      color: var(--bg-deep);
+      border: none;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      transition: transform 0.2s, background 0.3s;
+      display: inline-block;
+    }
+    .btn-cta:hover { background-color: #ffe033; transform: scale(1.04); }
+
+    /* ─── FEATURES ─── */
+    .features {
+      background-color: var(--bg-deep);
+      padding: 70px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .features h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-brown);
+      border-radius: 14px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+
+    .feature-icon { font-size: 2.2rem; margin-bottom: 14px; }
+
+    .feature-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--accent-brown);
+      border-bottom: 1px solid var(--accent-brown);
+      padding: 60px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cta-section h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+    }
+
+    .cta-section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--bg-section);
+      color: var(--accent-red);
+      font-size: 0.85rem;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 500px) {
+      header { padding: 10px 14px; }
+      nav ul { gap: 6px; }
+      .hero { padding: 50px 16px 70px; }
+    }
   </style>
 </head>
 
 <body>
 
-  <header> 
-    <button class="button3" onclick="location.href = 'dailyflame.html'">DailyFlame</button>
-    <ul>
-      <li><button class="button3" onclick="location.href = 'social.html'">social</button></li>
-      <li><button class="button3" onclick="location.href = 'stats.html'">stats</button></li>
-      <li><button class="button3" onclick="location.href = 'settings.html'">settings</button></li>
-    </ul>
-    <ul>
-      <li><button class="button4" onclick="location.href = 'inscription.html'">inscription</button></li>
-      <li><button class="button4" onclick="location.href = 'connexion.html'">connexion</button></li>
-    </ul>
+  <header>
+    <a class="logo-btn" href="dailyflame.html">🔥 Daily Ember</a>
+
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a class="btn-nav" href="social.html">Social</a></li>
+        <li><a class="btn-nav" href="stats.html">Stats</a></li>
+        <li><a class="btn-nav" href="settings.html">Paramètres</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="Authentification">
+      <ul>
+        <li><a class="btn-auth" href="inscription.html">Inscription</a></li>
+        <li><a class="btn-auth" href="connexion.html">Connexion</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
-    <img src="DFac.png" alt="Logo">
-    <h1> De Petites habitudes, Pour de Grands Changements </h1>
-    <button class ="button3"  onclick="location.href='habittracker.html'"> Commencer Maintenant </button>
+
+    <!-- HERO -->
+    <section class="hero">
+      <img src="DFac.png" alt="Logo Daily Ember">
+      <h1>De petites habitudes,<br>pour de grands changements</h1>
+      <p>Suivez vos habitudes quotidiennes, progressez chaque jour et regardez votre flamme grandir.</p>
+      <a class="btn-cta" href="habittracker.html">Commencer maintenant 🔥</a>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+      <h2>Pourquoi Daily Ember ?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Suivi quotidien</h3>
+          <p>Cochez vos habitudes chaque jour et gardez une trace de votre progression sur le long terme.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Statistiques</h3>
+          <p>Visualisez vos séries, vos taux de complétion et identifiez vos points forts et axes d'amélioration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Communauté</h3>
+          <p>Partagez vos progrès, motivez vos amis et progressez ensemble grâce à la fonctionnalité sociale.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔥</div>
+          <h3>Séries de feu</h3>
+          <p>Ne brisez jamais votre flamme ! Maintenez vos séries et débloquez des récompenses exclusives.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINALE -->
+    <section class="cta-section">
+      <h2>Prêt à allumer votre flamme ?</h2>
+      <p>Rejoignez des milliers d'utilisateurs qui transforment leurs habitudes jour après jour.</p>
+      <a class="btn-cta" href="inscription.html">Créer mon compte gratuitement</a>
+    </section>
+
   </main>
 
-  <div class="section2">
-  </div>
-
-  <footer>
-    © 2026 – Daily Ember
-  </footer>
+  <footer>© 2026 – Daily Ember</footer>
 
 </body>
 </html>
